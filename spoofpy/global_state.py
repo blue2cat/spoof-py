@@ -51,7 +51,7 @@ packet_queue = queue.Queue()
 hostname_dict = dict()
 
 # Where to upload donated data
-INSPECTOR_DATA_DONATION_SERVER = 'https://inspector.engineering.nyu.edu/backend_api'
+INSPECTOR_DATA_DONATION_SERVER = '.'
 if DEBUG:
     INSPECTOR_DATA_DONATION_SERVER = 'http://dannys-macbook-air:39402/backend_api'
 

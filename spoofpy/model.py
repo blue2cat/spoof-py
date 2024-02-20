@@ -53,7 +53,7 @@ class Device(BaseModel):
     friendly_product = TextField(default="")
 
     # Device state
-    is_inspected = IntegerField(default=1)
+    is_inspected = IntegerField(default=0)
     donates_data = IntegerField(default=0)
     is_blocked = IntegerField(default=0)
     favorite_time = FloatField(default=0)

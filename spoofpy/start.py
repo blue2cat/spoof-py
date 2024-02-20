@@ -10,7 +10,7 @@ import spoofpy.arp_scanner
 import spoofpy.arp_spoofer
 import spoofpy.packet_collector
 import spoofpy.packet_processor
-#import spoofpy.friendly_organizer
+import spoofpy.friendly_organizer
 #import spoofpy.data_donation
 import os
 from . import ui
@@ -40,8 +40,8 @@ def start_threads():
     spoofpy.common.SafeLoopThread(spoofpy.packet_collector.start_packet_collector, sleep_time=0)
     spoofpy.common.SafeLoopThread(spoofpy.packet_processor.process_packet, sleep_time=0)
     spoofpy.common.SafeLoopThread(spoofpy.arp_spoofer.spoof_internet_traffic, sleep_time=5)
-    #spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_hostname_info_to_flows, sleep_time=5)
-    #spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_product_info_to_devices, sleep_time=5)
+    spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_hostname_info_to_flows, sleep_time=5)
+    spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_product_info_to_devices, sleep_time=5)
     #spoofpy.common.SafeLoopThread(spoofpy.data_donation.start, sleep_time=15)
 
     spoofpy.common.log('Inspector started')
@@ -65,7 +65,6 @@ def init():
     #ask the user which ip they want to spoof
     #ui 
 
-    targets = ["10.4.110"]
 
 
     start_threads()

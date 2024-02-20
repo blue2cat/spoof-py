@@ -1,48 +1,37 @@
-from scapy.all import Ether, ARP, srp, send
+import scapy.all as cap
 import argparse
 import time
 import os
 import sys
-import helpers, ui
+import network
+import ui
+import daemon
+import threading
 
-def spoofpy():
-    # print the welcome message
+def start_threads(target_ip, network_info):
+    daemon.SafeLoopThread(daemon.spoof, args=[target_ip, network_info['ip']])
+
+
+
+
+def init():
     ui.welcome()
 
-    # get network information
-    network_info = helpers.get_network()
+    # disable IP routing
+    network.disable_ip_route()
+
+    # get the network information
+    network_info = network.get_network()
 
     # print the network information
     ui.print_network_info(network_info)
 
-    # get the targets
-    target_ip = ui.gather_targets(network_info['ip_range'])
+    # gather the targets
+    targets = ["10.0.4.110"] #ui.gather_targets(network_info['ip_range'])
 
-    target = helpers.gather_target_info(target_ip[0])
+    print(f"[*] Targets: {targets}")
 
-    print(f"[*] Target IP: {target['ip'], target['mac']}")
+    # start the threads
+    start_threads(targets[0], network_info)
 
-
-    # enable IP forwarding
-    helpers.enable_ip_route()
-
-
-    # start the spoofing attack
-    helpers.spoof(target['ip'], network_info['ip'])
-
-    # wait for 10 seconds
-    time.sleep(10)
-
-    # restore the network
-    helpers.restore(target['ip'], network_info['ip'])
-
-    # disable IP forwarding
-    helpers.disable_ip_route()
-
-
-if __name__ == "__main__":
-    spoofpy()
-
-
-
-
+init()

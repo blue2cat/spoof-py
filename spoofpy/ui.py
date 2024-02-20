@@ -54,3 +54,12 @@ def print_network_info(network_info):
     print(f"    - MAC address: {network_info['mac']}")
     print(f"    - Netmask: {network_info['netmask']}")
     print(f"    - Interface: {network_info['interface']}\n")
+
+def print_packets(packets):
+    """
+    Prints the packets in a human-readable format.
+    """
+    print("\n[*] Packets:")
+    for packet in packets:
+        print(packet.summary())
+    print("\n")

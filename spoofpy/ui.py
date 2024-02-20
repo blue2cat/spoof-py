@@ -19,3 +19,15 @@ def welcome():
     print("Use at your own risk.")
     print("\n")
 
+def get_user_input():
+    print("Please enter the IP address of the target you would like to spoof.")
+    
+    targets = []
+
+    while True:
+        target = input("Target IP address (or 'done' to finish): ")
+        if target == 'done':
+            break
+        targets.append(target)
+
+    return targets

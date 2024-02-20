@@ -11,6 +11,7 @@ import spoofpy.arp_spoofer
 import spoofpy.packet_collector
 import spoofpy.packet_processor
 import spoofpy.friendly_organizer
+import spoofpy.device_add as device_add
 #import spoofpy.data_donation
 import os
 from . import ui
@@ -63,13 +64,15 @@ def init():
     ui.welcome()
 
     #ask the user which ip they want to spoof
-    #ui 
+    targets = ui.get_user_input()
+
+    for target in targets:
+        device_add.add_device_to_inspected(target)
 
 
 
     start_threads()
 
-    print('Started Inspector')
     # Loop until the user quits
     try:
         while True:

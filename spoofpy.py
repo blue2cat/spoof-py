@@ -1,8 +1,10 @@
-import spoofpy
+import spoofpy.start
+
 
 def main():
-    return spoofpy.init()
+
+    return spoofpy.start.init()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

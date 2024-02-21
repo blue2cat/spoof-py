@@ -10,8 +10,6 @@ import spoofpy.friendly_organizer as friendly_organizer
 
 def start_packet_collector():
 
-    print('Starting packet collector')
-
     sc.load_layer('tls')
 
     # Continuously sniff packets for 30 second intervals

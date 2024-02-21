@@ -39,7 +39,6 @@ def spoof_internet_traffic():
     with model.db:
         
         for device in model.Device.select().where(criteria):
-            print(device)
             inspected_device_list.append(device)
 
     # Get the gateway's IP and MAC addresses

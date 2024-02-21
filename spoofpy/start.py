@@ -63,20 +63,34 @@ def init():
     #user welcome
     ui.welcome()
 
-    #ask the user which ip they want to spoof
-    targets = ui.get_user_input()
-
-    for target in targets:
-        device_add.add_device_to_inspected(target)
-
-
-
     start_threads()
+
+    # Process the user's input
+    switch = {
+        1: ui.add_device,
+        2: ui.list_inspected_devices,
+        3: ui.view_traffic,
+        4: ui.list_all_devices,
+        10: ui.quit
+    }
 
     # Loop until the user quits
     try:
         while True:
-            time.sleep(1)
+            ui.print_menu()
+
+            # Get the user's input
+            input = ui.get_user_choice()
+
+            
+
+            if input in switch:
+                switch[input]()
+            else:
+                print("Invalid choice. Please enter a number between 1 and 3.")
+
+            
+
             with global_state.global_state_lock:
                 if not global_state.is_running:
                     break

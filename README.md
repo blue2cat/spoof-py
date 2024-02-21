@@ -1,6 +1,8 @@
 # Arp Spoofing for Python
 
-This is a simple python script to perform arp spoofing. It allows a user to select a target and a gateway and then perform arp spoofing on the target.
+This is a simple python script to perform arp spoofing. It allows a user to select a target and a gateway and then perform arp spoofing on the target. Please note this is A WORK IN PROGRESS! It may not work as expected. 
+
+
 ![alt text](image.png)
 
 ### **WARNING: THIS SCRIPT IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT USE IT FOR MALICIOUS PURPOSES.**

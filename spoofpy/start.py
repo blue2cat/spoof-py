@@ -12,7 +12,7 @@ import spoofpy.packet_collector
 import spoofpy.packet_processor
 import spoofpy.friendly_organizer
 import spoofpy.device_add as device_add
-#import spoofpy.data_donation
+
 import os
 from . import ui
 
@@ -43,7 +43,6 @@ def start_threads():
     spoofpy.common.SafeLoopThread(spoofpy.arp_spoofer.spoof_internet_traffic, sleep_time=5)
     spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_hostname_info_to_flows, sleep_time=5)
     spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_product_info_to_devices, sleep_time=5)
-    #spoofpy.common.SafeLoopThread(spoofpy.data_donation.start, sleep_time=15)
 
     spoofpy.common.log('Inspector started')
 
@@ -54,51 +53,34 @@ def clean_up():
     spoofpy.networking.disable_ip_forwarding()
 
 
-def init():
+def init(ui_flag=False, argv=None):
     """
     Execute this function to start Inspector as a standalone application from the command line.
 
     """
-    
-    #user welcome
-    ui.welcome()
 
-    start_threads()
+    # Parse command line arguments
+    if ui_flag:
 
-    # Process the user's input
-    switch = {
-        1: ui.add_device,
-        2: ui.list_inspected_devices,
-        3: ui.view_traffic,
-        4: ui.list_all_devices,
-        10: ui.quit
-    }
+        # Start the UI
+        spoofpy.common.log('Starting Inspector in UI mode')
+        ui.start_threads()
+        spoofpy.common.log('Inspector started')
+        ui.main()
 
-    # Loop until the user quits
-    try:
-        while True:
-            ui.print_menu()
+    else:
 
-            # Get the user's input
-            input = ui.get_user_choice()
+        # Start the command line version
+        spoofpy.common.log('Starting Inspector in command line mode')
+        start_threads()
 
-            
-
-            if input in switch:
-                switch[input]()
-            else:
-                print("Invalid choice. Please enter a number between 1 and 3.")
-
-            
-
-            with global_state.global_state_lock:
-                if not global_state.is_running:
-                    break
-
-    except KeyboardInterrupt:
-        pass
-
-    clean_up()
-
-
-
+        spoofpy.common.log('Inspector started')
+        try:
+            while global_state.is_running:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            spoofpy.common.log('Caught KeyboardInterrupt. Exiting...')
+        clean_up()
+        spoofpy.common.log('Inspector stopped')
+        return 0
+    return 0            

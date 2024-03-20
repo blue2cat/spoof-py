@@ -1,8 +1,9 @@
 from spoofpy.device_add import add_device_to_inspected
 from spoofpy import global_state
-import time
 from spoofpy import common
 from spoofpy import model
+
+import time
 
 def welcome():
     print(r"""

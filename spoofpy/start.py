@@ -44,17 +44,13 @@ def start_threads():
 
 
 
-def clean_up():
-
-    spoofpy.networking.disable_ip_forwarding()
 
 
 def init():
     """
-    Execute this function to start Inspector as a standalone application from the command line.
+    Function executed to start Spoofpy in command line mode
 
     """
-
 
     # Start the command line version
     spoofpy.common.log('Starting Inspector in command line mode')
@@ -66,10 +62,9 @@ def init():
         while global_state.is_running:
             time.sleep(1)
     except: # Catch all exceptions
-        spoofpy.common.log('Inspector stopped')
-        clean_up()
+        spoofpy.common.log('Inspector stopped unexpectedly')
         return 0
     
-    clean_up()
+
     spoofpy.common.log('Inspector stopped')
     return 0            

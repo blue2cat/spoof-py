@@ -1,11 +1,7 @@
 # Arp Spoofing for Python
 
-This is a simple python script to perform arp spoofing. It allows a user to select a target and a gateway and then perform arp spoofing on the target. Please note this is A WORK IN PROGRESS! It may not work as expected. 
+This is a Dockerized python app that captures network data and pipes it into an attached Postges data container. This data is then available for analasis via the pgAdmin container. This app runs cross-platform as all logic is abstracted from the OS via Docker. 
 
-
-![alt text](image.png)
-
-### **WARNING: THIS SCRIPT IS FOR EDUCATIONAL PURPOSES ONLY. DO NOT USE IT FOR MALICIOUS PURPOSES.**
 
 ## Installation
 
@@ -14,14 +10,9 @@ This is a simple python script to perform arp spoofing. It allows a user to sele
 git clone https://github.com/blue2cat/spoof-py.git
 ```
 
-2. Install the required packages
-```bash
-pip install -r requirements.txt
-```
+2. Install Docker if not already installed. 
+
+3. Run `docker compose up` from this directory. 
 
 ## Usage
-Run the script
-```bash
-python3 spoofpy.py
-```
-
+1. Navigate to (localhost:80)[http://localhost:80]

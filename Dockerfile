@@ -1,4 +1,4 @@
-# Use an official Python runtime as the base image
+# Use ubuntu latest image as the base image
 FROM ubuntu:latest
 
 # set the user to root so we have permission to install packages
@@ -8,7 +8,8 @@ USER root
 ENV TZ=America/Los_Angeles
 
 # Install Python and required packages
-RUN apt-get update && apt-get install -y python3 python3-pip iptables libpcap-dev
+RUN apt-get update && apt-get install -y python3 python3-pip iptables libpcap-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
 WORKDIR /app

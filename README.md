@@ -1,3 +1,6 @@
+# What is Spoofpy? 
+Spoofpy is a containerized application that uses arp spoofing to collect network traffic from other devices on the same Wifi network. The application captures and stores data in a Postgres database. 
+
 # Network-wide Arp Spoofing
 
 This is a Dockerized Python app that captures network data and pipes it into an attached Postges data container. This data is then available for analysis via the pgAdmin container. This app runs cross-platform as all logic is abstracted from the OS via Docker. 

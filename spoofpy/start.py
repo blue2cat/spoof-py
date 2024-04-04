@@ -16,12 +16,12 @@ def start_threads():
 
     with global_state.global_state_lock:
         if global_state.inspector_started[0]:
-            spoofpy.common.log('Another instance of Inspector is already running. Aborted.')
+            spoofpy.common.log('Another instance of Spoofpy is already running. Aborted.')
             return
         global_state.inspector_started[0] = True
         global_state.inspector_started_ts = time.time()
 
-    spoofpy.common.log('Starting Inspector')
+    spoofpy.common.log('Starting Spoofpy ')
 
     # Initialize the database
     spoofpy.common.log('Initializing the database')
@@ -40,7 +40,7 @@ def start_threads():
     spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_hostname_info_to_flows, sleep_time=5)
     spoofpy.common.SafeLoopThread(spoofpy.friendly_organizer.add_product_info_to_devices, sleep_time=5)
 
-    spoofpy.common.log('Inspector started')
+    spoofpy.common.log('Spoofpy started')
 
 
 

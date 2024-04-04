@@ -11,10 +11,6 @@ import spoofpy.arp_spoofer
 import spoofpy.packet_collector
 import spoofpy.packet_processor
 import spoofpy.friendly_organizer
-import spoofpy.device_add as device_add
-
-import os
-from . import ui
 
 def start_threads():
 
@@ -33,7 +29,7 @@ def start_threads():
 
     # Initialize the networking variables
     spoofpy.common.log('Initializing the networking variables')
-    spoofpy.networking.enable_ip_forwarding()
+    # spoofpy.networking.enable_ip_forwarding()
     spoofpy.networking.update_network_info()
 
     # Start various threads
@@ -53,34 +49,27 @@ def clean_up():
     spoofpy.networking.disable_ip_forwarding()
 
 
-def init(ui_flag=False, argv=None):
+def init():
     """
     Execute this function to start Inspector as a standalone application from the command line.
 
     """
 
-    # Parse command line arguments
-    if ui_flag:
 
-        # Start the UI
-        spoofpy.common.log('Starting Inspector in UI mode')
-        ui.start_threads()
-        spoofpy.common.log('Inspector started')
-        ui.main()
+    # Start the command line version
+    spoofpy.common.log('Starting Inspector in command line mode')
 
-    else:
+    start_threads()
 
-        # Start the command line version
-        spoofpy.common.log('Starting Inspector in command line mode')
-        start_threads()
-
-        spoofpy.common.log('Inspector started')
-        try:
-            while global_state.is_running:
-                time.sleep(1)
-        except KeyboardInterrupt:
-            spoofpy.common.log('Caught KeyboardInterrupt. Exiting...')
-        clean_up()
+    spoofpy.common.log('Inspector started')
+    try:
+        while global_state.is_running:
+            time.sleep(1)
+    except: # Catch all exceptions
         spoofpy.common.log('Inspector stopped')
+        clean_up()
         return 0
+    
+    clean_up()
+    spoofpy.common.log('Inspector stopped')
     return 0            

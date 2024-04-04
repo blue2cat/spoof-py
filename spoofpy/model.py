@@ -1,10 +1,8 @@
-import spoofpy.common as common
 from peewee import *
 import os
-import json
-import uuid
 import threading
 
+import spoofpy.common as common
 
 # Should be held whenever writing to the database.
 write_lock = threading.Lock()
@@ -17,17 +15,18 @@ if not os.path.exists(project_directory):
 
 
 # Create the database
-db_path = os.path.join(common.get_project_directory(), 'data.sqlite3')
-db = SqliteDatabase(
-    db_path,
-    pragmas={'journal_mode': 'wal'}
+db = PostgresqlDatabase(
+    'mydatabase',
+    user='myuser',
+    password='mypassword',
+    host='127.1.1.1',
+    port="5432"
 )
 
 
 class BaseModel(Model):
     class Meta:
         database = db
-
 
 class Device(BaseModel):
 
@@ -53,7 +52,7 @@ class Device(BaseModel):
     friendly_product = TextField(default="")
 
     # Device state
-    is_inspected = IntegerField(default=0)
+    is_inspected = IntegerField(default=1)
     donates_data = IntegerField(default=0)
     is_blocked = IntegerField(default=0)
     favorite_time = FloatField(default=0)

@@ -1,12 +1,16 @@
 version: '3'
 services:
   app:
+    container_name: spoofpy-app
     build:
       context: .
       dockerfile: Dockerfile
+    privileged: true
     depends_on:
       - db
-    network_mode: "host"
+    networks:
+      - spoofpy-net
+      - spoofpy-internal-net
     volumes:
       - .:/app
     restart: always
@@ -17,15 +21,17 @@ services:
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_PORT: ${POSTGRES_PORT}
   db:
+    container_name: db
+    hostname: db
     image: postgres
+    networks:
+      - spoofpy-internal-net
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB_NAME}
     volumes:
       - spoofpy-db-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -35,3 +41,18 @@ services:
       - "80:80"
 volumes:
   spoofpy-db-data:
+
+networks:
+  spoofpy-net:
+    name: spoofpy-net
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: ${NETWORK_SUBNET}
+          ip_range: ${NETWORK_IP_RANGE}
+          gateway: ${NETWORK_GATEWAY}
+  spoofpy-internal-net:
+    name: spoofpy-internal-net
+    driver: bridge

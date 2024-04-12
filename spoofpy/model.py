@@ -16,11 +16,11 @@ if not os.path.exists(project_directory):
 
 # Create the database
 db = PostgresqlDatabase(
-    os.environ.get('POSTGRES_DB_NAME'),
-    user=os.environ.get('POSTGRES_USER'),
-    password=os.environ.get('POSTGRES_PASSWORD'),
-    host=os.environ.get('POSTGRES_HOST'),
-    port=os.environ.get('POSTGRES_PORT')
+    os.environ['POSTGRES_DB_NAME'],
+    user=os.environ['POSTGRES_USER'],
+    password=os.environ['POSTGRES_PASSWORD'],
+    host=os.environ['POSTGRES_HOST'],
+    port=os.environ['POSTGRES_PORT']
 )
 
 

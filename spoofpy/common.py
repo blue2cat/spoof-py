@@ -34,13 +34,13 @@ def get_python_code_directory():
 
 
 def log(message: str):
-    """Logs the message to `inspector.log` under the project directory, along with the timestamp."""
+    """Logs the message to `spoofpy.log` under the project directory, along with the timestamp."""
 
     # Add the timestamp to the message
     message = '[%s] %s' % (str(datetime.datetime.now()), message)
 
     with _log_lock:
-        with open(os.path.join(get_project_directory(), 'inspector.log'), 'a') as f:
+        with open(os.path.join(get_project_directory(), 'spoofpy.log'), 'a') as f:
             f.write(message + '\n')
 
 

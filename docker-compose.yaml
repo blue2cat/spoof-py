@@ -10,7 +10,6 @@ services:
       - db
     networks:
       - spoofpy-net
-      - spoofpy-internal-net
     volumes:
       - .:/app
     restart: always
@@ -25,7 +24,7 @@ services:
     hostname: db
     image: postgres
     networks:
-      - spoofpy-internal-net
+      - spoofpy-net
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

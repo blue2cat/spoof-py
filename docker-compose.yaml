@@ -10,6 +10,8 @@ services:
       - db
     networks:
       - spoofpy-net
+    links:
+      - db:db
     volumes:
       - .:/app
     restart: always
@@ -22,9 +24,9 @@ services:
   db:
     container_name: db
     hostname: db
-    image: postgres
     networks:
       - spoofpy-net
+    image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -46,7 +48,7 @@ networks:
     name: spoofpy-net
     driver: macvlan
     driver_opts:
-      parent: eth0
+      parent: wifi0
     ipam:
       config:
         - subnet: ${NETWORK_SUBNET}

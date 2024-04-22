@@ -10,3 +10,4 @@ plotly
 tldextract
 kaleido
 psycopg2-binary
+python-dotenv

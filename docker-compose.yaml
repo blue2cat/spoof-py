@@ -46,7 +46,7 @@ volumes:
 networks:
   spoofpy-net:
     name: spoofpy-net
-    driver: macvlan
+    driver: host
     driver_opts:
       parent: wifi0
     ipam:

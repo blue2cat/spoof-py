@@ -1,6 +1,7 @@
 from peewee import *
 import os
 import threading
+from dotenv import load_dotenv
 
 import spoofpy.common as common
 
@@ -13,7 +14,7 @@ project_directory = common.get_project_directory()
 if not os.path.exists(project_directory):
     os.makedirs(project_directory)
 
-
+load_dotenv()
 # Create the database
 db = PostgresqlDatabase(
     os.environ['POSTGRES_DB_NAME'],

@@ -156,3 +156,5 @@ cython_debug/
 /spoofpy/bin
 /spoofpy/share
 /spoofpy/etc
+/spoofpy-linux-venv
+/spoofpy-venv

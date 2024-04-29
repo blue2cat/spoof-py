@@ -1,26 +1,5 @@
 version: '3'
 services:
-  app:
-    container_name: spoofpy-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    privileged: true
-    depends_on:
-      - db
-    networks:
-      - spoofpy-net
-    links:
-      - db:db
-    volumes:
-      - .:/app
-    restart: always
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
   db:
     container_name: db
     hostname: db
@@ -33,6 +12,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_NAME}
     volumes:
       - spoofpy-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
   pgadmin:
     image: dpage/pgadmin4
     environment:
